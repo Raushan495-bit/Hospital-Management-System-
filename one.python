@@ -1,0 +1,106 @@
+
+# Hospital Management System
+
+patients = {}
+patient_number = 101
+
+
+def add_patient():
+    global patient_number
+
+    name = input("Enter patient name: ")
+
+    if name == "":
+        print("Invalid name.")
+        return
+
+    age = input("Enter patient age: ")
+
+    if not age.isdigit() or int(age) < 0 or int(age) > 120:
+        print("Invalid age. Enter between 0 and 120.")
+        return
+
+    disease = input("Enter disease: ")
+    doctor = input("Enter doctor name: ")
+
+    patient_id = "P" + str(patient_number)
+
+    patients[patient_id] = {
+        "Name": name,
+        "Age": int(age),
+        "Disease": disease,
+        "Doctor": doctor
+    }
+
+    patient_number += 1
+
+    print("Patient added successfully. ID:", patient_id)
+
+
+def view_patients():
+    if not patients:
+        print("No patient records found.")
+        return
+
+    for patient_id, details in patients.items():
+        print(patient_id, details)
+
+
+def search_patient():
+    patient_id = input("Enter patient ID: ").upper()
+
+    if patient_id in patients:
+        print(patients[patient_id])
+    else:
+        print("No patient record found.")
+
+
+def update_patient():
+    patient_id = input("Enter patient ID: ").upper()
+
+    if patient_id in patients:
+        disease = input("Enter new disease: ")
+        patients[patient_id]["Disease"] = disease
+
+        print("Patient", patient_id, "updated.")
+    else:
+        print("No patient record found.")
+
+
+def delete_patient():
+    patient_id = input("Enter patient ID: ").upper()
+
+    if patient_id in patients:
+        del patients[patient_id]
+        print("Patient", patient_id, "deleted.")
+    else:
+        print("No patient record found.")
+
+
+while True:
+    print("\nHospital Management System")
+    print("1. Add Patient")
+    print("2. View All Patients")
+    print("3. Search Patient")
+    print("4. Update Patient")
+    print("5. Delete Patient")
+    print("6. Exit")
+
+    choice = input("Enter your choice: ")
+
+    if choice == "1":
+        add_patient()
+    elif choice == "2":
+        view_patients()
+    elif choice == "3":
+        search_patient()
+    elif choice == "4":
+        update_patient()
+    elif choice == "5":
+        delete_patient()
+    elif choice == "6":
+        print("Thank you!")
+        break
+    else:
+        print("Invalid choice.")
+  
